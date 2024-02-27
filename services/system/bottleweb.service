@@ -1,0 +1,16 @@
+[Unit]
+Description=Python Bottle Camera Control web page
+After=network.target
+
+[Service]
+Type=simple
+User=picam
+WorkingDirectory=/home/picam
+ExecStart=/usr/bin/python3 /home/picam/cameractrl.py
+Restart=always
+RestartSec=10
+AllowedCPUs=2
+MemoryMax=50M
+
+[Install]
+WantedBy=multi-user.target

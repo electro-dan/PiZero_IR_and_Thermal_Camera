@@ -1,0 +1,26 @@
+;
+; Official Raspberry Pi v2.1 8MP camera based on the Sony IMX219 chip
+; https://www.raspberrypi.com/products/camera-module-v2/
+;
+[Unit]
+Description=mjpg-streamer web camera for AMG8833
+After=network.target
+
+[Service]
+Environment="LD_LIBRARY_PATH=/usr/local/lib/mjpg-streamer/"
+ExecStartPre=mkdir -p /run/shm/stream
+ExecStart=/usr/local/bin/mjpg_streamer \
+    -i "input_file.so -f /run/shm/stream -n amg8833.jpg" -o "output_http.so -w /usr/local/share/mjpg-streamer/www -p 8081"
+User=picam
+SupplementaryGroups=video i2c
+Restart=always
+RestartSec=10
+Nice=10
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+CPUWeight=20
+AllowedCPUs=2
+MemoryMax=50M
+
+[Install]
+WantedBy=multi-user.target

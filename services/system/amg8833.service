@@ -1,0 +1,19 @@
+[Unit]
+Description=AMG8833 Python interpolate script
+After=network.target
+
+[Service]
+Type=simple
+User=picam
+ExecStart=/usr/bin/python3 /home/picam/AMG8833_IR_cam/IR_cam_interp_stream.py
+SupplementaryGroups=i2c
+Restart=always
+RestartSec=10
+AllowedCPUs=1
+MemoryMax=100M
+CPUWeight=20
+CPUQuota=75%
+IOWeight=20
+
+[Install]
+WantedBy=multi-user.target

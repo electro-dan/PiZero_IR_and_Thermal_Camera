@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pi Night and Thermal Camera</title>
+    <link rel="stylesheet" href="/cameractrl.css">
+  </head>
+  <body>
+    <div class="top_nav">
+      <h1>Pi Night and Thermal Camera</h1>
+    </div>
+    <div class="content">
+      <div class="cards">
+        <div class="card">
+          <h2 id="">
+            Infrared
+          </h2>
+          <p>
+            <span id="irState">OFF</span>
+            <br>
+            <button id="btnIR" class="" onclick="triggerIR()">On / Off</button>
+          </p>
+        </div>
+        <div class="card">
+          <h2 id="">
+            Thermal service
+          </h2>
+          <p>
+            <span id="thermalState">OFF</span>
+            <br>
+            <button id="btnThermal" class="" onclick="triggerThermal()">On / Off</button>
+          </p>
+        </div>
+      </div>
+      <div class="spancards">
+        <div class="spancard">
+          <h2>
+            Camera view
+          </h2>
+          <p>
+            <video src="camera/video.mp4?" type="video/mp4" controls="controls" preload="none">
+          </p>
+        </div>
+        <div class="spancard">
+          <h2>
+            Thermal view
+          </h2>
+          <p>
+            <small><a href="thermal/?action=stream">Click to see thermal stream</a></small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/cameractrl.js"></script>
+  <script>
+    // Read status when page is focused
+    window.onfocus = function() {
+        readStatus();
+    }
+
+    // Read status when page is loaded
+    readStatus();
+  </script>
+</html>

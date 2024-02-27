@@ -1,0 +1,48 @@
+;
+; Official Raspberry Pi v2.1 8MP camera based on the Sony IMX219 chip
+; https://www.raspberrypi.com/products/camera-module-v2/
+;
+[Unit]
+Description=camera-streamer web camera for Pi Camera v2.1 8MP on Raspberry PI
+After=network.target
+ConditionPathExists=/sys/bus/i2c/drivers/imx219/10-0010/video4linux
+
+[Service]
+Environment="LIBCAMERA_RPI_TUNING_FILE=/usr/share/libcamera/ipa/rpi/vc4/imx219_noir.json"
+ExecStart=/usr/bin/camera-streamer \
+  --camera-path=/base/soc/i2c0mux/i2c@1/imx219@10 \
+  --camera-type=libcamera \
+  --camera-format=YUYV \
+  --camera-width=1640 --camera-height=1232 \
+  --camera-fps=15 \
+  --camera-vflip=1 \
+  --camera-hflip=1 \
+  ; use two memory buffers to optimise usage
+  --camera-nbufs=2 \
+  ; the snapshot is 1438x1080
+  --camera-snapshot.height=1232 \
+  ; the video/webrtc is 958x720
+  --camera-video.height=720 \
+  ; the stream is 639x480
+  --camera-stream.height=720 \
+  ; bump brightness slightly
+  --camera-options=brightness=0.1 \
+  --camera-options=sharpness=10 \
+  --camera-options=noisereductionmode=2 \
+  --http-listen=0.0.0.0 \
+  --http-port=8080 \
+  --rtsp-port
+
+DynamicUser=yes
+SupplementaryGroups=video i2c
+Restart=always
+RestartSec=10
+Nice=10
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+CPUWeight=20
+AllowedCPUs=1-2
+MemoryMax=250M
+
+[Install]
+WantedBy=multi-user.target
