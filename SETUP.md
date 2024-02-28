@@ -7,7 +7,7 @@ see https://www.raspbian.org/RaspbianMirrors
 
 `sudo apt update`
 
-## pre-requistes 
+## Pre-Requistes
 in /boot/config.txt:
 
 ```
@@ -61,7 +61,7 @@ Install tools
 `sudo systemctl restart nginx.service`
 
 ## setup services
-`services contain all options for camera/mjpg streamers`
+services contain all options for camera/mjpg streamers
 
 `sudo cp services/system/*.service /etc/systemd/system/`
 
