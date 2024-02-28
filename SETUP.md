@@ -7,7 +7,7 @@ see https://www.raspbian.org/RaspbianMirrors
 
 `sudo apt update`
 
-## Pre-Requistes
+## Prerequisites
 in /boot/config.txt:
 
 ```
@@ -48,19 +48,19 @@ Install tools
 
 `sudo make install`
 
-## python requirements
+## Python Requirements
 `sudo apt install -y python3-pip python3-bottle python3-plac python3-scipy python3-smbus python3-matplotlib python3-dbus python3-colour`
 
 `sudo pip3 install rpi-hardware-pwm`
 
-## web service
+## Web Service NGINX reverse proxy
 `sudo apt install -y nginx`
 
 `sudo cp ~/nginx/sites-available/default /etc/nginx/sites-available/default`
 
 `sudo systemctl restart nginx.service`
 
-## setup services
+## Setup Services
 services contain all options for camera/mjpg streamers
 
 `sudo cp services/system/*.service /etc/systemd/system/`
@@ -73,10 +73,14 @@ services contain all options for camera/mjpg streamers
 
 `sudo systemctl enable thermal-camera-streamer.service`
 
-## recommended
+## Recommended
+Automatic patches
+
 `sudo apt-get install unattended-upgrades`
 
 `sudo dpkg-reconfigure --priority=low unattended-upgrades`
+
+Firewall
 
 `sudo apt install ufw`
 
